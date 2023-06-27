@@ -110,7 +110,12 @@ public class Settings
     /// Reports scaffolding operations.
     /// Defaults to report errors, warnings and information messages on the console with the <see cref="Console.WriteLine()"/> method.
     /// </summary>
-    public IOperationReportHandler ReportHandler { get; init; } = new OperationReportHandler(Console.WriteLine, Console.WriteLine, Console.WriteLine);
+    public IOperationReportHandler ReportHandler { get; init; } = new OperationReportHandler(
+        errorHandler: message => Console.WriteLine($"❌ {message}"),
+        warningHandler: message => Console.WriteLine($"⚠️ {message}"),
+        informationHandler: message => Console.WriteLine($"ℹ️ {message}"),
+        verboseHandler: message => Console.WriteLine($"💬 {message}")
+    );
 
     /// <summary>
     /// The default implementation of the <see cref="ShouldDeleteFile"/> predicate.

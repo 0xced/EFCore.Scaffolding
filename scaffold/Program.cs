@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using EFCore.Scaffolding;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
-using Pastel;
 
 #if false
 var connectionStringBuilder = new Npgsql.NpgsqlConnectionStringBuilder
@@ -42,12 +39,6 @@ var settings = new Settings(connectionStringBuilder)
     RenameEntity = RenameEntity,
     RenameProperty = RenameProperty,
     SortColumnsComparer = new ColumnNameComparer(),
-    ReportHandler = new OperationReportHandler(
-        errorHandler: s => Console.WriteLine(s.Pastel(Color.Crimson))
-        ,warningHandler: s => Console.WriteLine(s.Pastel(Color.Orange))
-        ,informationHandler: s => Console.WriteLine(s.Pastel(Color.DeepSkyBlue))
-        //,verboseHandler: s => Console.WriteLine(s.Pastel(Color.DarkGray))
-    )
 };
 Scaffolder.Run(settings);
 Console.WriteLine($"Successfully scaffolded into {new Uri(settings.OutputDirectory.FullName)}");

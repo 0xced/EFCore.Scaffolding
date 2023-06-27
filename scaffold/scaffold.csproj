@@ -10,8 +10,4 @@
     <ProjectReference Include="..\src\EFCore.Scaffolding.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Pastel" Version="4.1.0" />
-  </ItemGroup>
-
 </Project>
