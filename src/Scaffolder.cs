@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EFCore.Scaffolding.Extensions;
+using EntityFrameworkCore.Jet.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -111,21 +112,29 @@ public static class Scaffolder
     {
         var connectionStringBuilderName = connectionStringBuilder.GetType().Name;
         var builder = new DbContextOptionsBuilder();
-        _ = connectionStringBuilder switch
+        var isWindows = OperatingSystem.IsWindows();
+        var optionsBuilder = connectionStringBuilder switch
         {
+            JetConnectionStringBuilder jet => isWindows ? builder.UseJet(".", jet.ProviderType) : builder,
             MySqlConnectionStringBuilder => builder.UseMySql(MySqlServerVersion.LatestSupportedServerVersion),
             NpgsqlConnectionStringBuilder => builder.UseNpgsql(),
             OracleConnectionStringBuilder => builder.UseOracle(),
             SqliteConnectionStringBuilder => builder.UseSqlite(),
             SqlConnectionStringBuilder => builder.UseSqlServer(),
-            _ => throw new NotSupportedException($"Unsupported connection string builder: {connectionStringBuilderName}. " +
-                                                 "The supported connection string builders are " +
-                                                 $"{nameof(MySqlConnectionStringBuilder)}, " +
-                                                 $"{nameof(NpgsqlConnectionStringBuilder)}, " +
-                                                 $"{nameof(OracleConnectionStringBuilder)}, " +
-                                                 $"{nameof(SqliteConnectionStringBuilder)} and {nameof(SqlConnectionStringBuilder)}.")
+            _ => builder,
         };
-        return new DbContext(builder.Options);
+        if (!optionsBuilder.IsConfigured)
+        {
+            var jetConnectionStringBuilder = isWindows ? $"{nameof(JetConnectionStringBuilder)}, " : "";
+            throw new NotSupportedException($"Unsupported connection string builder: {connectionStringBuilderName}. " +
+                                            "The supported connection string builders are " +
+                                            jetConnectionStringBuilder +
+                                            $"{nameof(MySqlConnectionStringBuilder)}, " +
+                                            $"{nameof(NpgsqlConnectionStringBuilder)}, " +
+                                            $"{nameof(OracleConnectionStringBuilder)}, " +
+                                            $"{nameof(SqliteConnectionStringBuilder)} and {nameof(SqlConnectionStringBuilder)}.");
+        }
+        return new DbContext(optionsBuilder.Options);
     }
 
     private static DbConnectionStringBuilder Copy(DbConnectionStringBuilder connectionStringBuilder)

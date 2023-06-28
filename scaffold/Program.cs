@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -22,7 +22,7 @@ var connectionStringBuilder = new Microsoft.Data.SqlClient.SqlConnectionStringBu
     UserID = "sqlproro",
     Password = "nh{Zd?*8ZU@Y}Bb#",
 };
-#else
+#elif false
 var connectionStringBuilder = new MySqlConnector.MySqlConnectionStringBuilder
 {
     Server = "sqlprostudio-mysql.csyg8tkobue6.us-west-2.rds.amazonaws.com",
@@ -30,6 +30,15 @@ var connectionStringBuilder = new MySqlConnector.MySqlConnectionStringBuilder
     UserID = "sqlprostudio-ro",
     Password = "password123",
 };
+#else
+const string dbFileName = "GardenCompany01.accdb";
+using var httpClient = new System.Net.Http.HttpClient();
+await using (var source = await httpClient.GetStreamAsync($"https://resources.oreilly.com/examples/9780735669086-files/-/raw/2028cbd72de96040988172d954d0437779a4c269/Chapter01/{dbFileName}"))
+await using (var destination = new FileStream(dbFileName, FileMode.Create, FileAccess.Write))
+{
+    await source.CopyToAsync(destination);
+}
+var connectionStringBuilder = new EntityFrameworkCore.Jet.Data.JetConnectionStringBuilder { DataSource = dbFileName };
 #endif
 var settings = new Settings(connectionStringBuilder)
 {
