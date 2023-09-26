@@ -14,11 +14,11 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Jet" Version="7.0.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.8" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.8" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.11" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="System.Data.Odbc" Version="7.0.0" />
     <PackageReference Include="System.Data.OleDb" Version="7.0.0" />
