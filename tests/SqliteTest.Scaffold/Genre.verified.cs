@@ -14,21 +14,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace Chinook_Sqlite;
+namespace SqliteTest;
 
-public partial class InvoiceLine
+public partial class Genre
 {
-    public long InvoiceLineId { get; set; }
+    public long GenreId { get; set; }
 
-    public long InvoiceId { get; set; }
+    public string? Name { get; set; }
 
-    public long TrackId { get; set; }
-
-    public byte[] UnitPrice { get; set; } = null!;
-
-    public long Quantity { get; set; }
-
-    public virtual Invoice Invoice { get; set; } = null!;
-
-    public virtual Track Track { get; set; } = null!;
+    public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 }

@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Chinook_Sqlite;
+namespace SqliteTest;
 
 public partial class ChinookContext : DbContext
 {

@@ -36,13 +36,13 @@ public class ScaffolderSettings
     public string? ContextName { get; init; }
 
     /// <summary>
-    /// The path where to write the entity files.
+    /// The directory where to write the entity files.
     /// Defaults to the current directory.
     /// </summary>
     public DirectoryInfo OutputDirectory { get; init; } = new(Environment.CurrentDirectory);
 
     /// <summary>
-    /// The path where to write the DbContext file. Uses the <see cref="OutputDirectory"/> if <c>null</c>.
+    /// The directory where to write the DbContext file. Uses the <see cref="OutputDirectory"/> if <c>null</c>.
     /// </summary>
     public DirectoryInfo? ContextOutputDirectory { get; init; }
 

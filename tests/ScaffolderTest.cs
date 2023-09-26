@@ -1,6 +1,6 @@
+using System.Data.Common;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore.Design;
 using VerifyXunit;
 using Xunit;
@@ -9,12 +9,15 @@ using Xunit.Abstractions;
 namespace EFCore.Scaffolding.Tests;
 
 [UsesVerify]
-public class ScaffolderTest
+public abstract class ScaffolderTest : IAsyncLifetime
 {
     private readonly IOperationReportHandler _operationReportHandler;
 
-    public ScaffolderTest(ITestOutputHelper testOutputHelper)
+    private readonly DirectoryInfo _outputDirectory;
+
+    protected ScaffolderTest(ITestOutputHelper testOutputHelper)
     {
+        _outputDirectory = new DirectoryInfo(GetType().Name);
         _operationReportHandler = new OperationReportHandler(
             errorHandler: message => testOutputHelper.WriteLine($"❌ {message}"),
             warningHandler: message => testOutputHelper.WriteLine($"⚠️ {message}"),
@@ -23,30 +26,36 @@ public class ScaffolderTest
         );
     }
 
+    private static string GetStableConnectionString(DbConnectionStringBuilder builder)
+    {
+        builder.Remove("password");
+        builder.Remove("port");
+        return builder.ConnectionString;
+    }
+
     [Fact]
-    public async Task ScaffoldSqlite()
+    public async Task Scaffold()
     {
         // Arrange
-        var outputDirectory = new DirectoryInfo("Chinook_Sqlite");
-        var connectionStringBuilder = new SqliteConnectionStringBuilder { DataSource = "Chinook.sqlite" };
-        await using (var connection = new SqliteConnection(connectionStringBuilder.ConnectionString))
-        {
-            await connection.OpenAsync();
-            await using var command = connection.CreateCommand();
-            command.CommandText = await File.ReadAllTextAsync(Path.Combine("Chinook", "Chinook_Sqlite.sql"));
-            await command.ExecuteNonQueryAsync();
-        }
+        var connectionStringBuilder = await GetConnectionStringBuilderAsync();
 
         // Act
         var settings = new ScaffolderSettings(connectionStringBuilder)
         {
             ReportHandler = _operationReportHandler,
             ContextName = "ChinookContext",
-            OutputDirectory = outputDirectory,
+            OutputDirectory = _outputDirectory,
+            GetDisplayableConnectionString = GetStableConnectionString,
         };
         Scaffolder.Run(settings);
 
         // Assert
-        await Verifier.VerifyDirectory(outputDirectory.FullName);
+        await Verifier.VerifyDirectory(_outputDirectory);
     }
+
+    protected abstract Task<DbConnectionStringBuilder> GetConnectionStringBuilderAsync();
+
+    public virtual Task InitializeAsync() => Task.CompletedTask;
+
+    public virtual Task DisposeAsync() => Task.CompletedTask;
 }

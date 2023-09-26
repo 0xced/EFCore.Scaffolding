@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Chinook_Sqlite;
+namespace SqliteTest;
 
 public partial class Artist
 {
