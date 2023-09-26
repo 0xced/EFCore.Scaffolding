@@ -13,9 +13,9 @@ namespace EFCore.Scaffolding;
 /// </summary>
 [SuppressMessage("ReSharper", "AutoPropertyCanBeMadeGetOnly.Global")]
 [SuppressMessage("ReSharper", "UnusedAutoPropertyAccessor.Global")]
-public class Settings
+public class ScaffolderSettings
 {
-    public Settings(DbConnectionStringBuilder connectionStringBuilder)
+    public ScaffolderSettings(DbConnectionStringBuilder connectionStringBuilder)
     {
         ConnectionStringBuilder = connectionStringBuilder;
     }

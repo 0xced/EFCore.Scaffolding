@@ -7,10 +7,10 @@ namespace EFCore.Scaffolding.Extensions;
 
 internal class RenamingCandidateNamingService : CandidateNamingService
 {
-    private readonly Settings _settings;
+    private readonly ScaffolderSettings _settings;
     private readonly IOperationReporter _reporter;
 
-    public RenamingCandidateNamingService(Settings settings, IOperationReporter reporter)
+    public RenamingCandidateNamingService(ScaffolderSettings settings, IOperationReporter reporter)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _reporter = reporter ?? throw new ArgumentNullException(nameof(reporter));

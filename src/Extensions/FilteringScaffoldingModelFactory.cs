@@ -14,12 +14,12 @@ namespace EFCore.Scaffolding.Extensions;
 internal class FilteringScaffoldingModelFactory : RelationalScaffoldingModelFactory
 {
     private readonly IOperationReporter _reporter;
-    private readonly Settings _settings;
+    private readonly ScaffolderSettings _settings;
 
-    public FilteringScaffoldingModelFactory(Settings settings, IOperationReporter reporter, ICandidateNamingService candidateNamingService, IPluralizer pluralizer, ICSharpUtilities cSharpUtilities, IScaffoldingTypeMapper scaffoldingTypeMapper, IModelRuntimeInitializer modelRuntimeInitializer)
+    public FilteringScaffoldingModelFactory(ScaffolderSettings settings, IOperationReporter reporter, ICandidateNamingService candidateNamingService, IPluralizer pluralizer, ICSharpUtilities cSharpUtilities, IScaffoldingTypeMapper scaffoldingTypeMapper, IModelRuntimeInitializer modelRuntimeInitializer)
         : base(reporter, candidateNamingService, pluralizer, cSharpUtilities, scaffoldingTypeMapper, modelRuntimeInitializer)
     {
-        _settings = settings;
+        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _reporter = reporter ?? throw new ArgumentNullException(nameof(reporter));
     }
 

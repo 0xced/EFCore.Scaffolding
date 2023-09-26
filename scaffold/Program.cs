@@ -40,7 +40,7 @@ await using (var destination = new FileStream(dbFileName, FileMode.Create, FileA
 }
 var connectionStringBuilder = new EntityFrameworkCore.Jet.Data.JetConnectionStringBuilder { DataSource = dbFileName };
 #endif
-var settings = new Settings(connectionStringBuilder)
+var settings = new ScaffolderSettings(connectionStringBuilder)
 {
     OutputDirectory = GetOutputDirectory(),
     FilterTable = FilterTable,
