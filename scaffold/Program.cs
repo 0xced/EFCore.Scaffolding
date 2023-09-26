@@ -30,7 +30,7 @@ var connectionStringBuilder = new MySqlConnector.MySqlConnectionStringBuilder
     UserID = "sqlprostudio-ro",
     Password = "password123",
 };
-#else
+#elif false
 const string dbFileName = "GardenCompany01.accdb";
 using var httpClient = new System.Net.Http.HttpClient();
 await using (var source = await httpClient.GetStreamAsync($"https://resources.oreilly.com/examples/9780735669086-files/-/raw/2028cbd72de96040988172d954d0437779a4c269/Chapter01/{dbFileName}"))
@@ -39,6 +39,15 @@ await using (var destination = new FileStream(dbFileName, FileMode.Create, FileA
     await source.CopyToAsync(destination);
 }
 var connectionStringBuilder = new EntityFrameworkCore.Jet.Data.JetConnectionStringBuilder { DataSource = dbFileName };
+#else
+const string dbFileName = "Chinook_Sqlite.sqlite";
+using var httpClient = new System.Net.Http.HttpClient();
+await using (var source = await httpClient.GetStreamAsync($"https://github.com/lerocha/chinook-database/raw/master/ChinookDatabase/DataSources/{dbFileName}"))
+await using (var destination = new FileStream(dbFileName, FileMode.Create, FileAccess.Write))
+{
+    await source.CopyToAsync(destination);
+}
+var connectionStringBuilder = new Microsoft.Data.Sqlite.SqliteConnectionStringBuilder { DataSource = dbFileName };
 #endif
 var settings = new ScaffolderSettings(connectionStringBuilder)
 {
