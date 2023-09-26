@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -11,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
 namespace EFCore.Scaffolding.Extensions;
 
+[SuppressMessage("Avoid uninstantiated internal classes", "CA1812", Justification = "It's instantiated through dependency injection")]
 internal class FilteringScaffoldingModelFactory : RelationalScaffoldingModelFactory
 {
     private readonly IOperationReporter _reporter;
