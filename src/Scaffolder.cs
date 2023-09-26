@@ -27,7 +27,7 @@ namespace EFCore.Scaffolding;
 public static class Scaffolder
 {
     [SuppressMessage("Avoid uninstantiated internal classes", "CA1812", Justification = "It's instantiated through dependency injection")]
-    private class DesignTimeServices : IDesignTimeServices
+    private sealed class DesignTimeServices : IDesignTimeServices
     {
         [ThreadStatic]
         public static ScaffolderSettings? CurrentSettings;

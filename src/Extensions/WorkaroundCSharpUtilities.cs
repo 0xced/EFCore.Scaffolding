@@ -9,7 +9,7 @@ namespace EFCore.Scaffolding.Extensions;
 /// Works around Humanizer <a href="https://github.com/Humanizr/Humanizer/issues/1219">issue #1219</a>: Singularize() throws IndexOutOfRangeException.
 /// </summary>
 [SuppressMessage("Avoid uninstantiated internal classes", "CA1812", Justification = "It's instantiated through dependency injection")]
-internal class WorkaroundCSharpUtilities : CSharpUtilities
+internal sealed class WorkaroundCSharpUtilities : CSharpUtilities
 {
     public override string GenerateCSharpIdentifier(string identifier, ICollection<string>? existingIdentifiers, Func<string, string>? singularizePluralizer, Func<string, ICollection<string>?, string> uniquifier)
     {

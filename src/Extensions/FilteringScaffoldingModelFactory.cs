@@ -13,7 +13,7 @@ using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 namespace EFCore.Scaffolding.Extensions;
 
 [SuppressMessage("Avoid uninstantiated internal classes", "CA1812", Justification = "It's instantiated through dependency injection")]
-internal class FilteringScaffoldingModelFactory : RelationalScaffoldingModelFactory
+internal sealed class FilteringScaffoldingModelFactory : RelationalScaffoldingModelFactory
 {
     private readonly IOperationReporter _reporter;
     private readonly ScaffolderSettings _settings;
