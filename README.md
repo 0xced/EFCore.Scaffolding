@@ -39,9 +39,25 @@ var connectionStringBuilder = new NpgsqlConnectionStringBuilder
 Scaffolder.Run(new ScaffolderSettings(connectionStringBuilder));
 ```
 
+### Filtering
+
+Both tables/entities and columns/properties can be filtered programmatically with the `FilterTable` and `FilterColumn` predicates of the `ScaffolderSettings` object. Sometimes it's easier to exclude a few tables rather than explicitly list dozen of tables.
+
+### Renaming
+
+Databases in the real world are not perfect and often table and/or column names are less than ideal. The `RenameEntity` and `RenameProperty` functions are here to tweak the names as appropriate.
+
+### Sorting properties
+
+By default, properties are scaffolded in the same order as columns appear in the tables. If you prefer to keep them sorted alphabetically, it's possible by setting `SortColumnsComparer = new ColumnNameComparer()`. It's even possible to write your own comparer if you need to sort them in any other way.
+
+### And more…
+
+The `ScaffolderSettings` class has a few more properties that will help you generate a perfect `DbContext` and its entities. All the public API is documented with XML comments.
+
 ## Sample code
 
-Here's how to scaffold a real PostgreSQL database using the `EFCore.Scaffolding` package.
+Here's how to scaffold a real PostgreSQL database using the `EFCore.Scaffolding` package. This demonstrates how to filter out the `fax` columns and rename `Fulltext` with proper `FullText` casing. This also demonstrates how the files can be saved relative to the current C# file.
 
 ```csharp
 using System;
