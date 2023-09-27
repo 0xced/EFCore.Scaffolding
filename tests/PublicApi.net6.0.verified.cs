@@ -1,5 +1,5 @@
 ﻿[assembly: System.CLSCompliant(false)]
-[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/0xced/EFCore.Scaffolding.git")]
+[assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/0xced/EFCore.Scaffolding")]
 [assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v6.0", FrameworkDisplayName=".NET 6.0")]
 namespace EFCore.Scaffolding
 {
