@@ -30,6 +30,7 @@ public static class Scaffolder
     private sealed class DesignTimeServices : IDesignTimeServices
     {
         [ThreadStatic]
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         public static ScaffolderSettings? CurrentSettings;
 
         public void ConfigureDesignTimeServices(IServiceCollection serviceCollection)

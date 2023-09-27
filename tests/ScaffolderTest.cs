@@ -52,7 +52,7 @@ public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where T
             OutputDirectory = outputDirectory,
             GetDisplayableConnectionString = GetStableConnectionString,
         };
-        Scaffolder.Run(settings);
+        _ = Scaffolder.Run(settings);
 
         // Assert
         await Verifier.VerifyDirectory(outputDirectory);
