@@ -14,8 +14,8 @@ internal sealed class RenamingCandidateNamingService : CandidateNamingService
 
     public RenamingCandidateNamingService(ScaffolderSettings settings, IOperationReporter reporter)
     {
-        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-        _reporter = reporter ?? throw new ArgumentNullException(nameof(reporter));
+        _settings = settings;
+        _reporter = reporter;
     }
 
     public override string GenerateCandidateIdentifier(DatabaseTable originalTable)

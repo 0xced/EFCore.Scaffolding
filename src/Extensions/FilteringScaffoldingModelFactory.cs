@@ -21,8 +21,8 @@ internal sealed class FilteringScaffoldingModelFactory : RelationalScaffoldingMo
     public FilteringScaffoldingModelFactory(ScaffolderSettings settings, IOperationReporter reporter, ICandidateNamingService candidateNamingService, IPluralizer pluralizer, ICSharpUtilities cSharpUtilities, IScaffoldingTypeMapper scaffoldingTypeMapper, IModelRuntimeInitializer modelRuntimeInitializer)
         : base(reporter, candidateNamingService, pluralizer, cSharpUtilities, scaffoldingTypeMapper, modelRuntimeInitializer)
     {
-        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-        _reporter = reporter ?? throw new ArgumentNullException(nameof(reporter));
+        _settings = settings;
+        _reporter = reporter;
     }
 
     protected override ModelBuilder VisitDatabaseModel(ModelBuilder modelBuilder, DatabaseModel databaseModel)

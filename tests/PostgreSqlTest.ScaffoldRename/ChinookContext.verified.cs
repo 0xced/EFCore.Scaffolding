@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
 public partial class ChinookContext : DbContext
 {
@@ -28,7 +28,7 @@ public partial class ChinookContext : DbContext
 
     public virtual DbSet<Artist> Artists { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
 
@@ -69,8 +69,10 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.Name).HasMaxLength(120);
         });
 
-        modelBuilder.Entity<Customer>(entity =>
+        modelBuilder.Entity<Client>(entity =>
         {
+            entity.HasKey(e => e.CustomerId);
+
             entity.ToTable("Customer");
 
             entity.HasIndex(e => e.SupportRepId, "IFK_CustomerSupportRepId");
@@ -85,10 +87,12 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.FirstName).HasMaxLength(40);
             entity.Property(e => e.LastName).HasMaxLength(20);
             entity.Property(e => e.Phone).HasMaxLength(24);
-            entity.Property(e => e.PostalCode).HasMaxLength(10);
             entity.Property(e => e.State).HasMaxLength(40);
+            entity.Property(e => e.ZipCode)
+                .HasMaxLength(10)
+                .HasColumnName("PostalCode");
 
-            entity.HasOne(d => d.SupportRep).WithMany(p => p.Customers)
+            entity.HasOne(d => d.SupportRep).WithMany(p => p.Clients)
                 .HasForeignKey(d => d.SupportRepId)
                 .HasConstraintName("FK_CustomerSupportRepId");
         });
@@ -110,9 +114,11 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.HireDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.LastName).HasMaxLength(20);
             entity.Property(e => e.Phone).HasMaxLength(24);
-            entity.Property(e => e.PostalCode).HasMaxLength(10);
             entity.Property(e => e.State).HasMaxLength(40);
             entity.Property(e => e.Title).HasMaxLength(30);
+            entity.Property(e => e.ZipCode)
+                .HasMaxLength(10)
+                .HasColumnName("PostalCode");
 
             entity.HasOne(d => d.ReportsToNavigation).WithMany(p => p.InverseReportsToNavigation)
                 .HasForeignKey(d => d.ReportsTo)
@@ -137,8 +143,10 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.BillingAddress).HasMaxLength(70);
             entity.Property(e => e.BillingCity).HasMaxLength(40);
             entity.Property(e => e.BillingCountry).HasMaxLength(40);
-            entity.Property(e => e.BillingPostalCode).HasMaxLength(10);
             entity.Property(e => e.BillingState).HasMaxLength(40);
+            entity.Property(e => e.BillingZipCode)
+                .HasMaxLength(10)
+                .HasColumnName("BillingPostalCode");
             entity.Property(e => e.InvoiceDate).HasColumnType("timestamp without time zone");
             entity.Property(e => e.Total).HasPrecision(10, 2);
 

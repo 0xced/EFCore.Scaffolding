@@ -14,13 +14,37 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
-public partial class Genre
+public partial class Client
 {
-    public int GenreId { get; set; }
+    public int CustomerId { get; set; }
 
-    public string? Name { get; set; }
+    public string FirstName { get; set; } = null!;
 
-    public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
+    public string LastName { get; set; } = null!;
+
+    public string? Company { get; set; }
+
+    public string? Address { get; set; }
+
+    public string? City { get; set; }
+
+    public string? State { get; set; }
+
+    public string? Country { get; set; }
+
+    public string? ZipCode { get; set; }
+
+    public string? Phone { get; set; }
+
+    public string? Fax { get; set; }
+
+    public string Email { get; set; } = null!;
+
+    public int? SupportRepId { get; set; }
+
+    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+
+    public virtual Employee? SupportRep { get; set; }
 }

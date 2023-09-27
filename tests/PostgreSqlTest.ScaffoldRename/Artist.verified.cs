@@ -14,13 +14,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
-public partial class Genre
+public partial class Artist
 {
-    public int GenreId { get; set; }
+    public int ArtistId { get; set; }
 
     public string? Name { get; set; }
 
-    public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
+    public virtual ICollection<Album> Albums { get; set; } = new List<Album>();
 }

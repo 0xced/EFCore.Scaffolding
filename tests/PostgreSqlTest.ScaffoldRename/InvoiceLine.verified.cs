@@ -14,13 +14,21 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
-public partial class Genre
+public partial class InvoiceLine
 {
-    public int GenreId { get; set; }
+    public int InvoiceLineId { get; set; }
 
-    public string? Name { get; set; }
+    public int InvoiceId { get; set; }
 
-    public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
+    public int TrackId { get; set; }
+
+    public decimal UnitPrice { get; set; }
+
+    public int Quantity { get; set; }
+
+    public virtual Invoice Invoice { get; set; } = null!;
+
+    public virtual Track Track { get; set; } = null!;
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Data.Common;
 using System.IO;
 using System.Threading.Tasks;
@@ -8,16 +9,20 @@ using Xunit.Abstractions;
 
 namespace EFCore.Scaffolding.Tests;
 
+public interface IDbFixture
+{
+    DbConnectionStringBuilder ConnectionStringBuilder { get; }
+}
+
 [UsesVerify]
-public abstract class ScaffolderTest : IAsyncLifetime
+public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where TFixture : class, IDbFixture
 {
     private readonly IOperationReportHandler _operationReportHandler;
+    private readonly DbConnectionStringBuilder _connectionStringBuilder;
 
-    private readonly DirectoryInfo _outputDirectory;
-
-    protected ScaffolderTest(ITestOutputHelper testOutputHelper)
+    protected ScaffolderTest(TFixture dbFixture, ITestOutputHelper testOutputHelper)
     {
-        _outputDirectory = new DirectoryInfo(GetType().Name);
+        _connectionStringBuilder = dbFixture.ConnectionStringBuilder;
         _operationReportHandler = new OperationReportHandler(
             errorHandler: message => testOutputHelper.WriteLine($"❌ {message}"),
             warningHandler: message => testOutputHelper.WriteLine($"⚠️ {message}"),
@@ -37,25 +42,64 @@ public abstract class ScaffolderTest : IAsyncLifetime
     public async Task Scaffold()
     {
         // Arrange
-        var connectionStringBuilder = await GetConnectionStringBuilderAsync();
+        var outputDirectory = new DirectoryInfo(Path.Combine(GetType().Name, nameof(Scaffold)));
 
         // Act
-        var settings = new ScaffolderSettings(connectionStringBuilder)
+        var settings = new ScaffolderSettings(_connectionStringBuilder)
         {
             ReportHandler = _operationReportHandler,
             ContextName = "ChinookContext",
-            OutputDirectory = _outputDirectory,
+            OutputDirectory = outputDirectory,
             GetDisplayableConnectionString = GetStableConnectionString,
         };
         Scaffolder.Run(settings);
 
         // Assert
-        await Verifier.VerifyDirectory(_outputDirectory);
+        await Verifier.VerifyDirectory(outputDirectory);
     }
 
-    protected abstract Task<DbConnectionStringBuilder> GetConnectionStringBuilderAsync();
+    [Fact]
+    public async Task ScaffoldOneTableOrderedColumns()
+    {
+        // Arrange
+        var outputDirectory = new DirectoryInfo(Path.Combine(GetType().Name, nameof(ScaffoldOneTableOrderedColumns)));
 
-    public virtual Task InitializeAsync() => Task.CompletedTask;
+        // Act
+        var settings = new ScaffolderSettings(_connectionStringBuilder)
+        {
+            ReportHandler = _operationReportHandler,
+            ContextName = "ChinookContext",
+            OutputDirectory = outputDirectory,
+            GetDisplayableConnectionString = GetStableConnectionString,
+            FilterTable = table => string.Equals(table.Name, "Customer", StringComparison.OrdinalIgnoreCase),
+            FilterColumn = column => !string.Equals(column.Name, "Fax", StringComparison.OrdinalIgnoreCase),
+            SortColumnsComparer = new ColumnNameComparer(),
+        };
+        Scaffolder.Run(settings);
 
-    public virtual Task DisposeAsync() => Task.CompletedTask;
+        // Assert
+        await Verifier.VerifyDirectory(outputDirectory);
+    }
+
+    [Fact]
+    public async Task ScaffoldRename()
+    {
+        // Arrange
+        var outputDirectory = new DirectoryInfo(Path.Combine(GetType().Name, nameof(ScaffoldOneTableOrderedColumns)));
+
+        // Act
+        var settings = new ScaffolderSettings(_connectionStringBuilder)
+        {
+            ReportHandler = _operationReportHandler,
+            ContextName = "ChinookContext",
+            OutputDirectory = outputDirectory,
+            GetDisplayableConnectionString = GetStableConnectionString,
+            RenameEntity = (entityName, _) => entityName == "Customer" ? "Client" : entityName,
+            RenameProperty = (propertyName, _) => propertyName.Replace("PostalCode", "ZipCode"),
+        };
+        Scaffolder.Run(settings);
+
+        // Assert
+        await Verifier.VerifyDirectory(outputDirectory);
+    }
 }

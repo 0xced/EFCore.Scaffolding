@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace PostgreSqlTest;
+namespace Scaffold;
 
 public partial class Artist
 {

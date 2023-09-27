@@ -78,8 +78,8 @@
   <ItemGroup>
     <Compile Remove="PublicApi.*.cs" />
     <None Include="PublicApi.*.cs" />
-    <Compile Remove="*.Scaffold/*.cs" />
-    <None Include="*.Scaffold/*.cs" />
+    <Compile Remove="*.Scaffold*/*.cs" />
+    <None Include="*.Scaffold*/*.cs" />
     <None Update="Chinook/*.sql" CopyToOutputDirectory="PreserveNewest" />
     <Compile Update="PostgreSqlTest.cs">
       <DependentUpon>ScaffolderTest.cs</DependentUpon>

@@ -14,13 +14,29 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
-public partial class Artist
+public partial class Invoice
 {
-    public long ArtistId { get; set; }
+    public long InvoiceId { get; set; }
 
-    public string? Name { get; set; }
+    public long CustomerId { get; set; }
 
-    public virtual ICollection<Album> Albums { get; set; } = new List<Album>();
+    public byte[] InvoiceDate { get; set; } = null!;
+
+    public string? BillingAddress { get; set; }
+
+    public string? BillingCity { get; set; }
+
+    public string? BillingState { get; set; }
+
+    public string? BillingCountry { get; set; }
+
+    public string? BillingZipCode { get; set; }
+
+    public byte[] Total { get; set; } = null!;
+
+    public virtual Client Customer { get; set; } = null!;
+
+    public virtual ICollection<InvoiceLine> InvoiceLines { get; set; } = new List<InvoiceLine>();
 }

@@ -14,17 +14,23 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
-public partial class Customer
+public partial class Employee
 {
-    public long CustomerId { get; set; }
-
-    public string FirstName { get; set; } = null!;
+    public long EmployeeId { get; set; }
 
     public string LastName { get; set; } = null!;
 
-    public string? Company { get; set; }
+    public string FirstName { get; set; } = null!;
+
+    public string? Title { get; set; }
+
+    public long? ReportsTo { get; set; }
+
+    public byte[]? BirthDate { get; set; }
+
+    public byte[]? HireDate { get; set; }
 
     public string? Address { get; set; }
 
@@ -34,17 +40,17 @@ public partial class Customer
 
     public string? Country { get; set; }
 
-    public string? PostalCode { get; set; }
+    public string? ZipCode { get; set; }
 
     public string? Phone { get; set; }
 
     public string? Fax { get; set; }
 
-    public string Email { get; set; } = null!;
+    public string? Email { get; set; }
 
-    public long? SupportRepId { get; set; }
+    public virtual ICollection<Client> Clients { get; set; } = new List<Client>();
 
-    public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
+    public virtual ICollection<Employee> InverseReportsToNavigation { get; set; } = new List<Employee>();
 
-    public virtual Employee? SupportRep { get; set; }
+    public virtual Employee? ReportsToNavigation { get; set; }
 }

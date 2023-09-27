@@ -28,11 +28,5 @@ public class ColumnNameComparer : IComparer<DatabaseColumn>
     }
 
     /// <inheritdoc />
-    public int Compare(DatabaseColumn? x, DatabaseColumn? y)
-    {
-        if (ReferenceEquals(x, y)) return 0;
-        if (ReferenceEquals(null, y)) return 1;
-        if (ReferenceEquals(null, x)) return -1;
-        return string.Compare(x.Name, y.Name, _stringComparison);
-    }
+    public int Compare(DatabaseColumn? x, DatabaseColumn? y) => string.Compare(x?.Name, y?.Name, _stringComparison);
 }

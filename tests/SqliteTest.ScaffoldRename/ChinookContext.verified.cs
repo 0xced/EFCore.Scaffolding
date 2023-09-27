@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
 public partial class ChinookContext : DbContext
 {
@@ -28,7 +28,7 @@ public partial class ChinookContext : DbContext
 
     public virtual DbSet<Artist> Artists { get; set; }
 
-    public virtual DbSet<Customer> Customers { get; set; }
+    public virtual DbSet<Client> Clients { get; set; }
 
     public virtual DbSet<Employee> Employees { get; set; }
 
@@ -68,8 +68,10 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.Name).HasColumnType("NVARCHAR(120)");
         });
 
-        modelBuilder.Entity<Customer>(entity =>
+        modelBuilder.Entity<Client>(entity =>
         {
+            entity.HasKey(e => e.CustomerId);
+
             entity.ToTable("Customer");
 
             entity.HasIndex(e => e.SupportRepId, "IFK_CustomerSupportRepId");
@@ -84,10 +86,12 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.FirstName).HasColumnType("NVARCHAR(40)");
             entity.Property(e => e.LastName).HasColumnType("NVARCHAR(20)");
             entity.Property(e => e.Phone).HasColumnType("NVARCHAR(24)");
-            entity.Property(e => e.PostalCode).HasColumnType("NVARCHAR(10)");
             entity.Property(e => e.State).HasColumnType("NVARCHAR(40)");
+            entity.Property(e => e.ZipCode)
+                .HasColumnType("NVARCHAR(10)")
+                .HasColumnName("PostalCode");
 
-            entity.HasOne(d => d.SupportRep).WithMany(p => p.Customers).HasForeignKey(d => d.SupportRepId);
+            entity.HasOne(d => d.SupportRep).WithMany(p => p.Clients).HasForeignKey(d => d.SupportRepId);
         });
 
         modelBuilder.Entity<Employee>(entity =>
@@ -107,9 +111,11 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.HireDate).HasColumnType("DATETIME");
             entity.Property(e => e.LastName).HasColumnType("NVARCHAR(20)");
             entity.Property(e => e.Phone).HasColumnType("NVARCHAR(24)");
-            entity.Property(e => e.PostalCode).HasColumnType("NVARCHAR(10)");
             entity.Property(e => e.State).HasColumnType("NVARCHAR(40)");
             entity.Property(e => e.Title).HasColumnType("NVARCHAR(30)");
+            entity.Property(e => e.ZipCode)
+                .HasColumnType("NVARCHAR(10)")
+                .HasColumnName("PostalCode");
 
             entity.HasOne(d => d.ReportsToNavigation).WithMany(p => p.InverseReportsToNavigation).HasForeignKey(d => d.ReportsTo);
         });
@@ -132,8 +138,10 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.BillingAddress).HasColumnType("NVARCHAR(70)");
             entity.Property(e => e.BillingCity).HasColumnType("NVARCHAR(40)");
             entity.Property(e => e.BillingCountry).HasColumnType("NVARCHAR(40)");
-            entity.Property(e => e.BillingPostalCode).HasColumnType("NVARCHAR(10)");
             entity.Property(e => e.BillingState).HasColumnType("NVARCHAR(40)");
+            entity.Property(e => e.BillingZipCode)
+                .HasColumnType("NVARCHAR(10)")
+                .HasColumnName("BillingPostalCode");
             entity.Property(e => e.InvoiceDate).HasColumnType("DATETIME");
             entity.Property(e => e.Total).HasColumnType("NUMERIC(10,2)");
 

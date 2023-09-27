@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SqliteTest;
+namespace Scaffold;
 
 public partial class MediaType
 {

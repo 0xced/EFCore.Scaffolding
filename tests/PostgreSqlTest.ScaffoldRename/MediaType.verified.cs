@@ -14,11 +14,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
-public partial class Genre
+public partial class MediaType
 {
-    public int GenreId { get; set; }
+    public int MediaTypeId { get; set; }
 
     public string? Name { get; set; }
 

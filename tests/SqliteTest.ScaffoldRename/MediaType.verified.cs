@@ -14,13 +14,13 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scaffold;
+namespace ScaffoldOneTableOrderedColumns;
 
-public partial class Artist
+public partial class MediaType
 {
-    public long ArtistId { get; set; }
+    public long MediaTypeId { get; set; }
 
     public string? Name { get; set; }
 
-    public virtual ICollection<Album> Albums { get; set; } = new List<Album>();
+    public virtual ICollection<Track> Tracks { get; set; } = new List<Track>();
 }
