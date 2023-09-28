@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EFCore.Scaffolding.Extensions;
 using EntityFrameworkCore.Jet.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
@@ -42,6 +41,7 @@ public static class Scaffolder
             serviceCollection.AddFiltering();
             serviceCollection.AddRenaming();
             serviceCollection.AddWorkarounds();
+            CurrentSettings.ConfigureServices?.Invoke(serviceCollection);
 
             CurrentSettings = null;
         }

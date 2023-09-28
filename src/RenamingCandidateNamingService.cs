@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Design.Internal;
 using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
-namespace EFCore.Scaffolding.Extensions;
+namespace EFCore.Scaffolding;
 
 [SuppressMessage("Avoid uninstantiated internal classes", "CA1812", Justification = "It's instantiated through dependency injection")]
 internal sealed class RenamingCandidateNamingService : CandidateNamingService

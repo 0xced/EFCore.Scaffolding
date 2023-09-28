@@ -17,6 +17,7 @@ namespace EFCore.Scaffolding
     {
         public ScaffolderSettings(System.Data.Common.DbConnectionStringBuilder connectionStringBuilder) { }
         public System.Data.Common.DbConnectionStringBuilder ConnectionStringBuilder { get; }
+        public System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>? ConfigureServices { get; init; }
         public string? ContextName { get; init; }
         public string? ContextNamespace { get; init; }
         public System.IO.DirectoryInfo? ContextOutputDirectory { get; init; }
@@ -34,5 +35,10 @@ namespace EFCore.Scaffolding
         public System.Collections.Generic.IEnumerable<string> Tables { get; init; }
         public static string DefaultGetDisplayableConnectionString(System.Data.Common.DbConnectionStringBuilder builder) { }
         public static bool DefaultShouldDeleteFile(System.IO.FileInfo file) { }
+    }
+    public static class ServiceCollectionExtensions
+    {
+        public static void Replace(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection, System.Type serviceType, System.Type implementationType) { }
+        public static void Replace<TService, TImplementation>(this Microsoft.Extensions.DependencyInjection.IServiceCollection serviceCollection) { }
     }
 }

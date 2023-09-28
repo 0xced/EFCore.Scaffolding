@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
 
-namespace EFCore.Scaffolding.Extensions;
+namespace EFCore.Scaffolding;
 
 /// <summary>
 /// Works around Humanizer <a href="https://github.com/Humanizr/Humanizer/issues/1219">issue #1219</a>: Singularize() throws IndexOutOfRangeException.

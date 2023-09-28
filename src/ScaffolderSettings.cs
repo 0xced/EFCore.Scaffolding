@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace EFCore.Scaffolding;
 
@@ -120,6 +121,12 @@ public class ScaffolderSettings
         informationHandler: message => Console.WriteLine($"ℹ️ {message}"),
         verboseHandler: message => Console.WriteLine($"💬 {message}")
     );
+
+    /// <summary>
+    /// An optional callback to configure EntityFramework Core design-time service collection.
+    /// The <see cref="ServiceCollectionExtensions.Replace{TService,TImplementation}"/> method can be used to easily replace an interface with a custom implementation.
+    /// </summary>
+    public Action<IServiceCollection>? ConfigureServices { get; init; }
 
     /// <summary>
     /// The default implementation of the <see cref="ShouldDeleteFile"/> predicate.
