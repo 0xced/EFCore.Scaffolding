@@ -91,4 +91,36 @@ static DirectoryInfo GetOutputDirectory([CallerFilePath] string path = "")
     => new(Path.GetFullPath(Path.Combine(Path.GetDirectoryName(path)!, "..", "ChinookDatabase")));
 ```
 
-You can actually try to run this code, I have hosted the [Chinook](https://github.com/lerocha/chinook-database/) sample database on the free [Neon](https://neon.tech) tier.
+You can actually try to run this code, I have hosted the [Chinook](https://github.com/lerocha/chinook-database/) sample database on the [free Neon tier](https://neon.tech/docs/introduction/free-tier).
+
+## Database creation
+
+Here's how the database was created on [Neon](https://neon.tech).
+
+```sql
+-- Create the database
+CREATE DATABASE chinook;
+
+-- Run this script to create and populate the tables
+-- https://github.com/0xced/ChinookDb_Pg_Modified/blob/7bfda2aadf70259907dba1b1b82bf3a2378d7345/chinook_pg_serial_pk_proper_naming.sql
+
+-- Create the user and grant SELECT
+CREATE USER "AzureDiamond" LOGIN PASSWORD 'correct horse battery staple';
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO "AzureDiamond";
+```
+
+Additional commands to check privileges and drop the user.
+
+```sql
+-- Verify the privileges
+SELECT * FROM information_schema.role_table_grants WHERE grantee = 'AzureDiamond';
+
+-- Drop user
+REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA public FROM "AzureDiamond";
+-- REVOKE ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public FROM "AzureDiamond";
+-- REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public FROM "AzureDiamond";
+-- REVOKE ALL PRIVILEGES ON SCHEMA public FROM "AzureDiamond";
+-- REVOKE ALL PRIVILEGES ON DATABASE chinook FROM "AzureDiamond";
+DROP USER "AzureDiamond";
+```
+
