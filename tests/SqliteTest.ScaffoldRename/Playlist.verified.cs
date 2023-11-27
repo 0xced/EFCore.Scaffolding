@@ -18,7 +18,7 @@ namespace ScaffoldOneTableOrderedColumns;
 
 public partial class Playlist
 {
-    public long PlaylistId { get; set; }
+    public int PlaylistId { get; set; }
 
     public string? Name { get; set; }
 

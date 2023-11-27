@@ -26,7 +26,7 @@ public partial class Customer
 
     public string? Country { get; set; }
 
-    public long CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
     public string Email { get; set; } = null!;
 
@@ -40,5 +40,5 @@ public partial class Customer
 
     public string? State { get; set; }
 
-    public long? SupportRepId { get; set; }
+    public int? SupportRepId { get; set; }
 }
