@@ -14,7 +14,6 @@ public interface IDbFixture
     DbConnectionStringBuilder ConnectionStringBuilder { get; }
 }
 
-[UsesVerify]
 public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where TFixture : class, IDbFixture
 {
     private readonly IOperationReportHandler _operationReportHandler;
