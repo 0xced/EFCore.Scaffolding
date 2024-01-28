@@ -30,21 +30,46 @@ public partial class ChinookContext : DbContext
     {
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.ToTable("Customer");
+            entity.HasKey(e => e.CustomerId).HasName("customer_pkey");
 
-            entity.HasIndex(e => e.SupportRepId, "IFK_CustomerSupportRepId");
+            entity.ToTable("customer");
 
-            entity.Property(e => e.CustomerId).ValueGeneratedNever();
-            entity.Property(e => e.Address).HasMaxLength(70);
-            entity.Property(e => e.City).HasMaxLength(40);
-            entity.Property(e => e.Company).HasMaxLength(80);
-            entity.Property(e => e.Country).HasMaxLength(40);
-            entity.Property(e => e.Email).HasMaxLength(60);
-            entity.Property(e => e.FirstName).HasMaxLength(40);
-            entity.Property(e => e.LastName).HasMaxLength(20);
-            entity.Property(e => e.Phone).HasMaxLength(24);
-            entity.Property(e => e.PostalCode).HasMaxLength(10);
-            entity.Property(e => e.State).HasMaxLength(40);
+            entity.HasIndex(e => e.SupportRepId, "customer_support_rep_id_idx");
+
+            entity.Property(e => e.CustomerId)
+                .ValueGeneratedNever()
+                .HasColumnName("customer_id");
+            entity.Property(e => e.Address)
+                .HasMaxLength(70)
+                .HasColumnName("address");
+            entity.Property(e => e.City)
+                .HasMaxLength(40)
+                .HasColumnName("city");
+            entity.Property(e => e.Company)
+                .HasMaxLength(80)
+                .HasColumnName("company");
+            entity.Property(e => e.Country)
+                .HasMaxLength(40)
+                .HasColumnName("country");
+            entity.Property(e => e.Email)
+                .HasMaxLength(60)
+                .HasColumnName("email");
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(40)
+                .HasColumnName("first_name");
+            entity.Property(e => e.LastName)
+                .HasMaxLength(20)
+                .HasColumnName("last_name");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(24)
+                .HasColumnName("phone");
+            entity.Property(e => e.PostalCode)
+                .HasMaxLength(10)
+                .HasColumnName("postal_code");
+            entity.Property(e => e.State)
+                .HasMaxLength(40)
+                .HasColumnName("state");
+            entity.Property(e => e.SupportRepId).HasColumnName("support_rep_id");
         });
 
         OnModelCreatingPartial(modelBuilder);
