@@ -95,14 +95,52 @@ You can actually try to run this code, I have hosted the [Chinook](https://githu
 
 ## Database creation
 
-Here's how the database was created on [Neon](https://neon.tech).
+Here's how to create the Chinook database on [Neon](https://neon.tech). These instructions are adapted from the [Neon documentation](https://neon.tech/docs/import/import-sample-data#chinook-database) but using the latest version of the Chinook database that uses snake_case table and column names.
+
+1. Checkout the [chinook-database](https://github.com/lerocha/chinook-database/) repository
+
+```shell
+git clone https://github.com/lerocha/chinook-database/
+```
+
+2. Run a docker container to load the database (performing so many inserts directly on Neon is impossibly slow)
+
+```shell
+pg_container_id=`docker run -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_HOST_AUTH_METHOD=trust -d --rm --mount type=bind,source=${PWD}/ChinookDatabase/DataSources/Chinook_PostgreSql_AutoIncrementPKs.sql,destination=/docker-entrypoint-initdb.d/chinook.sql,readonly postgres:alpine`
+```
+
+3. Dump the database into `chinook_dump.sql`
+
+```shell
+docker exec ${pg_container_id} pg_dump --username postgres --no-owner --file chinook_dump.sql
+```
+
+ℹ️ This generates an SQL script with `COPY` statements which are _much_ faster than a series of `INSERT` statements.
+
+4. Optionally extract this file out of the Docker container to have a look at it
+
+```shell
+docker cp ${pg_container_id}:/chinook_dump.sql .
+```
+
+5. Execute the generated script after creating a database named `chinook` in the Neon [console](http://console.neon.tech) and replacing the connection string with the one provided in the Neon dashboard
+
+
+```shell
+docker exec ${pg_container_id} psql -d "postgres://[user]:[password]@[neon_hostname]/chinook" -f chinook_dump.sql
+```
+
+6. Dispose the Docker container after checking that the database has been successfully imported
+
+```shell
+docker stop ${pg_container_id}
+```
+
+### Database permissions
 
 ```sql
--- Create the database
+-- Create the database (can also be done interactively in the Neon console)
 CREATE DATABASE chinook;
-
--- Run this script to create and populate the tables
--- https://github.com/0xced/ChinookDb_Pg_Modified/blob/7bfda2aadf70259907dba1b1b82bf3a2378d7345/chinook_pg_serial_pk_proper_naming.sql
 
 -- Create the user and grant SELECT
 CREATE USER "AzureDiamond" LOGIN PASSWORD 'correct horse battery staple';
