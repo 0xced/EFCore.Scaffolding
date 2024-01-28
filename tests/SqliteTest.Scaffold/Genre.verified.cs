@@ -18,7 +18,7 @@ namespace Scaffold;
 
 public partial class Genre
 {
-    public long GenreId { get; set; }
+    public int GenreId { get; set; }
 
     public string? Name { get; set; }
 

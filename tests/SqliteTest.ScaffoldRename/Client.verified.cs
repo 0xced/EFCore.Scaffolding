@@ -18,7 +18,7 @@ namespace ScaffoldOneTableOrderedColumns;
 
 public partial class Client
 {
-    public long CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
     public string FirstName { get; set; } = null!;
 
@@ -42,7 +42,7 @@ public partial class Client
 
     public string Email { get; set; } = null!;
 
-    public long? SupportRepId { get; set; }
+    public int? SupportRepId { get; set; }
 
     public virtual ICollection<Invoice> Invoices { get; set; } = new List<Invoice>();
 

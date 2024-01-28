@@ -18,7 +18,7 @@ namespace ScaffoldOneTableOrderedColumns;
 
 public partial class MediaType
 {
-    public long MediaTypeId { get; set; }
+    public int MediaTypeId { get; set; }
 
     public string? Name { get; set; }
 

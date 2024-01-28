@@ -11,7 +11,6 @@ using Xunit;
 
 namespace EFCore.Scaffolding.Tests;
 
-[UsesVerify]
 public class PublicApi
 {
     [Theory]
@@ -36,11 +35,8 @@ public class PublicApi
             var csprojPath = Path.Combine(GetSrcDirectoryPath(), "EFCore.Scaffolding.csproj");
             var project = XDocument.Load(csprojPath);
             var targetFrameworks = project.XPathSelectElement("/Project/PropertyGroup/TargetFrameworks")?.Value.Split(';', StringSplitOptions.RemoveEmptyEntries)
-                                   ?? new[] { project.XPathSelectElement("/Project/PropertyGroup/TargetFramework")?.Value ?? throw new Exception($"TargetFramework(s) element not found in {csprojPath}") };
-            foreach (var targetFramework in targetFrameworks)
-            {
-                Add(targetFramework);
-            }
+                                   ?? [project.XPathSelectElement("/Project/PropertyGroup/TargetFramework")?.Value ?? throw new Exception($"TargetFramework(s) element not found in {csprojPath}")];
+            AddRange(targetFrameworks);
         }
     }
 }

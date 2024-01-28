@@ -18,23 +18,23 @@ namespace ScaffoldOneTableOrderedColumns;
 
 public partial class Track
 {
-    public long TrackId { get; set; }
+    public int TrackId { get; set; }
 
     public string Name { get; set; } = null!;
 
-    public long? AlbumId { get; set; }
+    public int? AlbumId { get; set; }
 
-    public long MediaTypeId { get; set; }
+    public int MediaTypeId { get; set; }
 
-    public long? GenreId { get; set; }
+    public int? GenreId { get; set; }
 
     public string? Composer { get; set; }
 
-    public long Milliseconds { get; set; }
+    public int Milliseconds { get; set; }
 
-    public long? Bytes { get; set; }
+    public int? Bytes { get; set; }
 
-    public byte[] UnitPrice { get; set; } = null!;
+    public decimal UnitPrice { get; set; }
 
     public virtual Album? Album { get; set; }
 

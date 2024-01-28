@@ -18,7 +18,7 @@ namespace ScaffoldOneTableOrderedColumns;
 
 public partial class Employee
 {
-    public long EmployeeId { get; set; }
+    public int EmployeeId { get; set; }
 
     public string LastName { get; set; } = null!;
 
@@ -26,11 +26,11 @@ public partial class Employee
 
     public string? Title { get; set; }
 
-    public long? ReportsTo { get; set; }
+    public int? ReportsTo { get; set; }
 
-    public byte[]? BirthDate { get; set; }
+    public DateTime? BirthDate { get; set; }
 
-    public byte[]? HireDate { get; set; }
+    public DateTime? HireDate { get; set; }
 
     public string? Address { get; set; }
 

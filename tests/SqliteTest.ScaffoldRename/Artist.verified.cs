@@ -18,7 +18,7 @@ namespace ScaffoldOneTableOrderedColumns;
 
 public partial class Artist
 {
-    public long ArtistId { get; set; }
+    public int ArtistId { get; set; }
 
     public string? Name { get; set; }
 

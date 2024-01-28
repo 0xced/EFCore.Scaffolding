@@ -18,11 +18,11 @@ namespace ScaffoldOneTableOrderedColumns;
 
 public partial class Invoice
 {
-    public long InvoiceId { get; set; }
+    public int InvoiceId { get; set; }
 
-    public long CustomerId { get; set; }
+    public int CustomerId { get; set; }
 
-    public byte[] InvoiceDate { get; set; } = null!;
+    public DateTime InvoiceDate { get; set; }
 
     public string? BillingAddress { get; set; }
 
@@ -34,7 +34,7 @@ public partial class Invoice
 
     public string? BillingZipCode { get; set; }
 
-    public byte[] Total { get; set; } = null!;
+    public decimal Total { get; set; }
 
     public virtual Client Customer { get; set; } = null!;
 
