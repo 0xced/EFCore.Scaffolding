@@ -74,6 +74,12 @@ public class ScaffolderSettings
     public Func<FileInfo, bool> ShouldDeleteFile { get; init; } = DefaultShouldDeleteFile;
 
     /// <summary>
+    /// The newline string to use for scaffolded files.
+    /// Defaults depends on the current platform, i.e. <c>\r\n</c> for non-Unix platforms or <c>\n</c> for Unix platforms.
+    /// </summary>
+    public string NewLine { get; init; } = Environment.NewLine;
+
+    /// <summary>
     /// A function that returns a connection string appropriate to save into the scaffolded files.
     /// Defaults to remove the <c>password</c> from the connection string builder.
     /// </summary>

@@ -25,6 +25,7 @@ namespace EFCore.Scaffolding
         public System.Predicate<Microsoft.EntityFrameworkCore.Scaffolding.Metadata.DatabaseTable> FilterTable { get; init; }
         public System.Func<System.Data.Common.DbConnectionStringBuilder, string> GetDisplayableConnectionString { get; init; }
         public string? ModelNamespace { get; init; }
+        public string NewLine { get; init; }
         public System.IO.DirectoryInfo OutputDirectory { get; init; }
         public System.Func<string, Microsoft.EntityFrameworkCore.Scaffolding.Metadata.DatabaseTable, string> RenameEntity { get; init; }
         public System.Func<string, Microsoft.EntityFrameworkCore.Scaffolding.Metadata.DatabaseColumn, string> RenameProperty { get; init; }
