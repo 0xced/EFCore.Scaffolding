@@ -21,12 +21,13 @@ public class PostgreSqlTest : ScaffolderTest<PostgreSqlTest.PostgreSqlFixture>
     {
         public DbConnectionStringBuilder ConnectionStringBuilder { get; private set; } = null!;
 
-        private readonly PostgreSqlContainer _container = new PostgreSqlBuilder().Build();
+        private readonly PostgreSqlContainer _container = new PostgreSqlBuilder()
+            .WithResourceMapping(Path.Combine("Chinook", "Chinook_PostgreSql.sql"), "/docker-entrypoint-initdb.d/")
+            .Build();
 
         public async Task InitializeAsync()
         {
             await _container.StartAsync();
-            await _container.ExecScriptAsync(await File.ReadAllTextAsync(Path.Combine("Chinook", "Chinook_PostgreSql.sql")));
             ConnectionStringBuilder = new NpgsqlConnectionStringBuilder(_container.GetConnectionString());
         }
 
