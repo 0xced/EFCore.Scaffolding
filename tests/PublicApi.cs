@@ -19,7 +19,7 @@ public class PublicApi
     {
         var testAssembly = typeof(PublicApi).Assembly;
         var configuration = testAssembly.GetCustomAttribute<AssemblyConfigurationAttribute>()?.Configuration
-                            ?? throw new Exception($"{nameof(AssemblyConfigurationAttribute)} not found in {testAssembly.Location}");
+                            ?? throw new InvalidDataException($"{nameof(AssemblyConfigurationAttribute)} not found in {testAssembly.Location}");
         var assemblyPath = Path.Combine(GetSrcDirectoryPath(), "bin", configuration, targetFramework, "EFCore.Scaffolding.dll");
         var assembly = Assembly.LoadFile(assemblyPath);
         var publicApi = assembly.GeneratePublicApi();
@@ -35,7 +35,7 @@ public class PublicApi
             var csprojPath = Path.Combine(GetSrcDirectoryPath(), "EFCore.Scaffolding.csproj");
             var project = XDocument.Load(csprojPath);
             var targetFrameworks = project.XPathSelectElement("/Project/PropertyGroup/TargetFrameworks")?.Value.Split(';', StringSplitOptions.RemoveEmptyEntries)
-                                   ?? [project.XPathSelectElement("/Project/PropertyGroup/TargetFramework")?.Value ?? throw new Exception($"TargetFramework(s) element not found in {csprojPath}")];
+                                   ?? [project.XPathSelectElement("/Project/PropertyGroup/TargetFramework")?.Value ?? throw new InvalidDataException($"TargetFramework(s) element not found in {csprojPath}")];
             AddRange(targetFrameworks);
         }
     }
