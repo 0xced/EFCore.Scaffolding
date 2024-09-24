@@ -61,14 +61,13 @@ public static class Scaffolder
 
     private static void DeleteExistingFiles(ScaffolderSettings settings)
     {
-        if (!settings.OutputDirectory.Exists)
+        DirectoryInfo?[] directories = [settings.OutputDirectory, settings.ContextOutputDirectory];
+        foreach (var directory in directories.OfType<DirectoryInfo>().Where(d => d.Exists))
         {
-            return;
-        }
-
-        foreach (var file in settings.OutputDirectory.GetFiles("*.cs").Where(settings.ShouldDeleteFile))
-        {
-            file.Delete();
+            foreach (var file in directory.GetFiles("*.cs").Where(settings.ShouldDeleteFile))
+            {
+                file.Delete();
+            }
         }
     }
 
@@ -84,7 +83,7 @@ public static class Scaffolder
             rootNamespace: "",
             language: null,
             nullable: true,
-            args: Array.Empty<string>()
+            args: []
         );
 
         var modelNamespace = settings.ModelNamespace ?? settings.OutputDirectory.Name;
