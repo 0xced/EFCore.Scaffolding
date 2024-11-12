@@ -14,7 +14,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ScaffoldOneTableOrderedColumns;
+namespace ScaffoldRename;
 
 public partial class Employee
 {

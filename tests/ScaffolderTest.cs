@@ -1,6 +1,7 @@
 using System;
 using System.Data.Common;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Design;
 using VerifyXunit;
@@ -37,11 +38,13 @@ public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where T
         return builder.ConnectionString;
     }
 
+    private DirectoryInfo GetOutputDirectory([CallerMemberName] string testName = "") => new(Path.Combine(GetType().Name, testName));
+
     [Fact]
     public async Task Scaffold()
     {
         // Arrange
-        var outputDirectory = new DirectoryInfo(Path.Combine(GetType().Name, nameof(Scaffold)));
+        var outputDirectory = GetOutputDirectory();
 
         // Act
         var settings = new ScaffolderSettings(_connectionStringBuilder)
@@ -61,7 +64,7 @@ public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where T
     public async Task ScaffoldOneTableOrderedColumns()
     {
         // Arrange
-        var outputDirectory = new DirectoryInfo(Path.Combine(GetType().Name, nameof(ScaffoldOneTableOrderedColumns)));
+        var outputDirectory = GetOutputDirectory();
 
         // Act
         var settings = new ScaffolderSettings(_connectionStringBuilder)
@@ -84,7 +87,7 @@ public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where T
     public async Task ScaffoldRename()
     {
         // Arrange
-        var outputDirectory = new DirectoryInfo(Path.Combine(GetType().Name, nameof(ScaffoldOneTableOrderedColumns)));
+        var outputDirectory = GetOutputDirectory();
 
         // Act
         var settings = new ScaffolderSettings(_connectionStringBuilder)

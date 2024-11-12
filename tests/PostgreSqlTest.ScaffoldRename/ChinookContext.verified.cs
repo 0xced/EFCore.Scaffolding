@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace ScaffoldOneTableOrderedColumns;
+namespace ScaffoldRename;
 
 public partial class ChinookContext : DbContext
 {
