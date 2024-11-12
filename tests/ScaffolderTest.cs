@@ -104,4 +104,34 @@ public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where T
         // Assert
         await Verifier.VerifyDirectory(outputDirectory);
     }
+
+    [Fact]
+    public async Task ScaffoldRenameNavigation()
+    {
+        // Arrange
+        var outputDirectory = GetOutputDirectory();
+
+        // Act
+        var settings = new ScaffolderSettings(_connectionStringBuilder)
+        {
+            ReportHandler = _operationReportHandler,
+            ContextName = "ChinookContext",
+            OutputDirectory = outputDirectory,
+            GetDisplayableConnectionString = GetStableConnectionString,
+            RenameDependentEndNavigation = (propertyName, _) => propertyName switch
+            {
+                "SupportRep" => "SupportRepresentative",
+                _ => propertyName,
+            },
+            RenamePrincipalEndNavigation = (propertyName, _, dependentEndNavigationPropertyName) => dependentEndNavigationPropertyName switch
+            {
+                "Invoice" => propertyName,
+                _ => $"{dependentEndNavigationPropertyName}{propertyName}",
+            },
+        };
+        Scaffolder.Run(settings);
+
+        // Assert
+        await Verifier.VerifyDirectory(outputDirectory);
+    }
 }
