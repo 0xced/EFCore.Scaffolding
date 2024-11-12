@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0][2.1.0] - 2024-11-12
+
+* Add possibility to rename dependent end and/or principal end navigation properties with the new `RenameDependentEndNavigation` and `RenamePrincipalEndNavigation` functions. 
+
 ## [2.0.0][2.0.0] - 2024-09-16
 
 * Update to latest provider versions
@@ -24,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Initial release
 
+[2.1.0]: https://github.com/0xced/EFCore.Scaffolding/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/0xced/EFCore.Scaffolding/compare/2.0.0-rc.1...2.0.0
 [2.0.0-rc.1]: https://github.com/0xced/EFCore.Scaffolding/compare/1.0.0...2.0.0-rc.1
 [1.0.0]: https://github.com/0xced/EFCore.Scaffolding/releases/tag/1.0.0

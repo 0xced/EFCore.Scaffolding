@@ -27,7 +27,9 @@ namespace EFCore.Scaffolding
         public string? ModelNamespace { get; init; }
         public string NewLine { get; init; }
         public System.IO.DirectoryInfo OutputDirectory { get; init; }
+        public System.Func<string, Microsoft.EntityFrameworkCore.Metadata.IReadOnlyForeignKey, string> RenameDependentEndNavigation { get; init; }
         public System.Func<string, Microsoft.EntityFrameworkCore.Scaffolding.Metadata.DatabaseTable, string> RenameEntity { get; init; }
+        public System.Func<string, Microsoft.EntityFrameworkCore.Metadata.IReadOnlyForeignKey, string, string> RenamePrincipalEndNavigation { get; init; }
         public System.Func<string, Microsoft.EntityFrameworkCore.Scaffolding.Metadata.DatabaseColumn, string> RenameProperty { get; init; }
         public Microsoft.EntityFrameworkCore.Design.IOperationReportHandler ReportHandler { get; init; }
         public System.Collections.Generic.IEnumerable<string> Schemas { get; init; }

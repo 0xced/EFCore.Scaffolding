@@ -46,6 +46,7 @@ Both tables/entities and columns/properties can be filtered programmatically wit
 ### Renaming
 
 Databases in the real world are not perfect and often table and/or column names are less than ideal. The `RenameEntity` and `RenameProperty` functions are here to tweak the names as appropriate.
+It is also possible to rename dependent end and/or principal end navigation properties through the `RenameDependentEndNavigation` and `RenamePrincipalEndNavigation` functions.
 
 ### Sorting properties
 

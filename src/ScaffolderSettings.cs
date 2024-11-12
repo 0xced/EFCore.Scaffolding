@@ -4,6 +4,7 @@ using System.Data.Common;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -108,6 +109,18 @@ public class ScaffolderSettings
     /// Defaults to using the proposed property name.
     /// </summary>
     public Func<string, DatabaseColumn, string> RenameProperty { get; init; } = (propertyName, _) => propertyName;
+
+    /// <summary>
+    /// A function to potentially rename the proposed dependent end navigation property name.
+    /// Defaults to using the proposed property name.
+    /// </summary>
+    public Func<string, IReadOnlyForeignKey, string> RenameDependentEndNavigation { get; init; } = (propertyName, _) => propertyName;
+
+    /// <summary>
+    /// A function to potentially rename the proposed principal end navigation property name.
+    /// Defaults to using the proposed property name.
+    /// </summary>
+    public Func<string, IReadOnlyForeignKey, string, string> RenamePrincipalEndNavigation { get; init; } = (propertyName, _, _) => propertyName;
 
     /// <summary>
     /// An optional <see cref="IComparer{T}"/> used to sort columns.

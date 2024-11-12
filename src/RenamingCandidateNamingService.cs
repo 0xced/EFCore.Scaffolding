@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Design.Internal;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
 using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
@@ -35,6 +36,28 @@ internal sealed class RenamingCandidateNamingService : CandidateNamingService
         if (result != propertyName)
         {
             _reporter.WriteInformation($"Renamed property {originalColumn.Table.Name}.{propertyName} to {result}");
+        }
+        return result;
+    }
+
+    public override string GetDependentEndCandidateNavigationPropertyName(IReadOnlyForeignKey foreignKey)
+    {
+        var propertyName = base.GetDependentEndCandidateNavigationPropertyName(foreignKey);
+        var result = _settings.RenameDependentEndNavigation(propertyName, foreignKey);
+        if (result != propertyName)
+        {
+            _reporter.WriteInformation($"Renamed dependent end navigation {propertyName} to {result}");
+        }
+        return result;
+    }
+
+    public override string GetPrincipalEndCandidateNavigationPropertyName(IReadOnlyForeignKey foreignKey, string dependentEndNavigationPropertyName)
+    {
+        var propertyName = base.GetPrincipalEndCandidateNavigationPropertyName(foreignKey, dependentEndNavigationPropertyName);
+        var result = _settings.RenamePrincipalEndNavigation(propertyName, foreignKey, dependentEndNavigationPropertyName);
+        if (result != propertyName)
+        {
+            _reporter.WriteInformation($"Renamed principal end navigation {propertyName} to {result}");
         }
         return result;
     }
