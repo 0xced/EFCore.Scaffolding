@@ -86,9 +86,9 @@
       },
       "System.Data.Odbc": {
         "type": "Direct",
-        "requested": "[8.0.1, )",
-        "resolved": "8.0.1",
-        "contentHash": "JQd0QHOaZuH+ki+4Geas88dnLe/lZSaEYYmRdovZaqNVuExVlVFs/of2I1VaasMxzbO5+yrGDAP2rkazx/b8Sg=="
+        "requested": "[9.0.0, )",
+        "resolved": "9.0.0",
+        "contentHash": "VyLdWZBmdk7qRI7nMfZZTiHaeAtyvlwk+BsTPrDMG/Rm+xw16gj7b2uofhwtIYgiYCJ4ae/cOmzMT/MEHkU9oQ=="
       },
       "System.Data.OleDb": {
         "type": "Direct",

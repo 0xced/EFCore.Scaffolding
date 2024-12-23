@@ -73,7 +73,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.60" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
-    <PackageReference Include="System.Data.Odbc" Version="8.0.1" />
+    <PackageReference Include="System.Data.Odbc" Version="9.0.0" />
     <PackageReference Include="System.Data.OleDb" Version="8.0.1" />
   </ItemGroup>
 
