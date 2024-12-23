@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0][3.0.0] - 2025-10-10
+
+* Update to latest provider versions
+    * [EntityFrameworkCore.Jet 9.0.0](https://www.nuget.org/packages/EntityFrameworkCore.Jet/9.0.0)
+    * [Microsoft.EntityFrameworkCore.Sqlite 9.0.9](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/9.0.9)
+    * [Microsoft.EntityFrameworkCore.SqlServer 9.0.9](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/9.0.9)
+    * [Npgsql.EntityFrameworkCore.PostgreSQL 9.0.4](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/9.0.4)
+    * [Oracle.EntityFrameworkCore 9.23.90](https://www.nuget.org/packages/Oracle.EntityFrameworkCore/9.23.90)
+    * [Pomelo.EntityFrameworkCore.MySql 9.0.0](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql/9.0.0)
+    * [System.Data.Odbc 9.0.9](https://www.nuget.org/packages/System.Data.Odbc/9.0.9)
+    * [System.Data.OleDb 9.0.9](https://www.nuget.org/packages/System.Data.OleDb/9.0.9)
+
 ## [2.1.0][2.1.0] - 2024-11-12
 
 * Add possibility to rename dependent end and/or principal end navigation properties with the new `RenameDependentEndNavigation` and `RenamePrincipalEndNavigation` functions. 
@@ -28,6 +40,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Initial release
 
+[3.0.0]: https://github.com/0xced/EFCore.Scaffolding/compare/2.1.0...3.0.0
 [2.1.0]: https://github.com/0xced/EFCore.Scaffolding/compare/2.0.0...2.1.0
 [2.0.0]: https://github.com/0xced/EFCore.Scaffolding/compare/2.0.0-rc.1...2.0.0
 [2.0.0-rc.1]: https://github.com/0xced/EFCore.Scaffolding/compare/1.0.0...2.0.0-rc.1
