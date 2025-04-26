@@ -16,8 +16,8 @@ namespace EFCore.Scaffolding
     public class ScaffolderSettings
     {
         public ScaffolderSettings(System.Data.Common.DbConnectionStringBuilder connectionStringBuilder) { }
-        public System.Data.Common.DbConnectionStringBuilder ConnectionStringBuilder { get; }
         public System.Action<Microsoft.Extensions.DependencyInjection.IServiceCollection>? ConfigureServices { get; init; }
+        public System.Data.Common.DbConnectionStringBuilder ConnectionStringBuilder { get; }
         public string? ContextName { get; init; }
         public string? ContextNamespace { get; init; }
         public System.IO.DirectoryInfo? ContextOutputDirectory { get; init; }
