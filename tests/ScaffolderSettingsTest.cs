@@ -1,7 +1,7 @@
 using System;
 using System.Data.Common;
 using System.IO;
-using FluentAssertions;
+using AwesomeAssertions;
 using Xunit;
 
 namespace EFCore.Scaffolding.Tests;
