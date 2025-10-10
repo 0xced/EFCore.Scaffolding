@@ -8,6 +8,7 @@ env:
   DOTNET_CLI_TELEMETRY_OPTOUT: true
   DOTNET_NOLOGO: true
   DOTNET_SYSTEM_CONSOLE_ALLOW_ANSI_COLOR_REDIRECTION: true
+  REPORTGENERATOR_LICENSE: ${{ secrets.REPORTGENERATOR_LICENSE }}
   TERM: xterm
 
 jobs:
@@ -18,14 +19,17 @@ jobs:
         os: [ ubuntu-latest ]
       fail-fast: false
     runs-on: ${{ matrix.os }}
-    permissions:
-      checks: write
     name: 🛠 Build, test and pack
     steps:
       - name: 🧑‍💻 Checkout git repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: 🏎 Optimize Windows runner
+        if: matrix.os == 'windows-latest'
+        run: |
+          echo "DOTNET_INSTALL_DIR=D:\dotnet" >> $env:GITHUB_ENV
+          echo "NUGET_PACKAGES=D:\nuget" >> $env:GITHUB_ENV
       - name: 🧑‍🔧 Install .NET SDK
         uses: actions/setup-dotnet@v4
       - name: ℹ️ Show .NET info
@@ -33,7 +37,7 @@ jobs:
       - name: 💾 Retrieve cached NuGet packages
         uses: actions/cache@v4
         with:
-          path: ~/.nuget/packages
+          path: ${{ env.NUGET_PACKAGES || '~/.nuget/packages' }}
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
@@ -53,13 +57,20 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: TestResults (${{ runner.os }})
-          path: TestResults-*.html
+          name: TestResults-${{ runner.os }}.trx
+          path: "*.trx"
+      - name: 📊 Test Report
+        uses: dorny/test-reporter@v2
+        if: always()
+        with:
+          name: 🚦 Test Results
+          path: '*.trx'
+          reporter: dotnet-trx
       - name: ☂️ Upload coverage report to Codecov
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         if: matrix.os == 'ubuntu-latest' && env.CODECOV_TOKEN != ''
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           files: coverage/*/coverage.cobertura.xml
           token: ${{ env.CODECOV_TOKEN }}
@@ -103,6 +114,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: write
+      id-token: write
     name: 🐿 Publish
     steps:
       - name: 📥 Download NuGet package artifact
@@ -120,5 +132,10 @@ jobs:
           body_path: ReleaseNotes.md
           prerelease: ${{ contains(github.ref_name, '-') }}
           files: "*.nupkg"
+      - name: 🔑 Retrieve NuGet API key
+        uses: NuGet/login@v1
+        id: nuget-login
+        with:
+          user: 0xced
       - name: 🚀 Publish NuGet package on nuget.org
-        run: dotnet nuget push "*.nupkg" --source https://api.nuget.org/v3/index.json --api-key "${{ secrets.NUGET_API_KEY }}"
+        run: dotnet nuget push "*.nupkg" --source https://api.nuget.org/v3/index.json --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}"
