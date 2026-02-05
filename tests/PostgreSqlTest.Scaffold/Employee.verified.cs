@@ -48,6 +48,8 @@ public partial class Employee
 
     public string? Email { get; set; }
 
+    public byte[]? Photo { get; set; }
+
     public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
 
     public virtual ICollection<Employee> InverseReportsToNavigation { get; set; } = new List<Employee>();

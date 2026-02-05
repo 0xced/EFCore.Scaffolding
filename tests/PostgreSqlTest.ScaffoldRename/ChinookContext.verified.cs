@@ -176,6 +176,7 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(24)
                 .HasColumnName("phone");
+            entity.Property(e => e.Photo).HasColumnName("photo");
             entity.Property(e => e.ReportsTo).HasColumnName("reports_to");
             entity.Property(e => e.State)
                 .HasMaxLength(40)

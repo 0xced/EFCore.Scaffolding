@@ -94,6 +94,7 @@ CREATE TABLE [Employee]
     [Phone] NVARCHAR(24),
     [Fax] NVARCHAR(24),
     [Email] NVARCHAR(60),
+    [Photo] BLOB,
     CONSTRAINT [PK_Employee] PRIMARY KEY  ([EmployeeId]),
     FOREIGN KEY ([ReportsTo]) REFERENCES [Employee] ([EmployeeId]) 
         ON DELETE NO ACTION ON UPDATE NO ACTION

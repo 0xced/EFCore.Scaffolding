@@ -64,6 +64,7 @@ CREATE TABLE employee
     phone VARCHAR(24),
     fax VARCHAR(24),
     email VARCHAR(60),
+    photo BYTEA,
     CONSTRAINT employee_pkey PRIMARY KEY  (employee_id)
 );
 
