@@ -76,6 +76,8 @@ public partial class ChinookContext : DbContext
 
             entity.HasIndex(e => e.SupportRepId, "IFK_CustomerSupportRepId");
 
+            entity.HasIndex(e => new { e.Fax, e.Email }, "IX_CustomerFaxEmail");
+
             entity.Property(e => e.CustomerId).ValueGeneratedNever();
             entity.Property(e => e.Address).HasColumnType("NVARCHAR(70)");
             entity.Property(e => e.City).HasColumnType("NVARCHAR(40)");

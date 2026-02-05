@@ -196,3 +196,5 @@ ALTER TABLE track ADD CONSTRAINT track_media_type_id_fkey
     FOREIGN KEY (media_type_id) REFERENCES media_type (media_type_id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 CREATE INDEX track_media_type_id_idx ON track (media_type_id);
+
+CREATE INDEX customer_fax_email_idx ON customer (fax, email);

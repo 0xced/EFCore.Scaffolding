@@ -204,3 +204,5 @@ CREATE INDEX [IFK_TrackAlbumId] ON [Track] ([AlbumId]);
 CREATE INDEX [IFK_TrackGenreId] ON [Track] ([GenreId]);
 
 CREATE INDEX [IFK_TrackMediaTypeId] ON [Track] ([MediaTypeId]);
+
+CREATE INDEX [IX_CustomerFaxEmail] ON [Customer] ([Fax], [Email]);

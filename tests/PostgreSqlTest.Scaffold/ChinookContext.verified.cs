@@ -88,6 +88,8 @@ public partial class ChinookContext : DbContext
 
             entity.ToTable("customer");
 
+            entity.HasIndex(e => new { e.Fax, e.Email }, "customer_fax_email_idx");
+
             entity.HasIndex(e => e.SupportRepId, "customer_support_rep_id_idx");
 
             entity.Property(e => e.CustomerId)
