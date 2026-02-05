@@ -119,12 +119,8 @@ public static class Scaffolder
         var builder = new DbContextOptionsBuilder();
         var optionsBuilder = connectionStringBuilder switch
         {
-#if PROVIDER_JET
             EntityFrameworkCore.Jet.Data.JetConnectionStringBuilder jet => OperatingSystem.IsWindows() ? builder.UseJet(".", jet.ProviderType) : builder,
-#endif
-#if PROVIDER_MYSQL
             MySqlConnector.MySqlConnectionStringBuilder => builder.UseMySql(MySqlServerVersion.LatestSupportedServerVersion),
-#endif
             NpgsqlConnectionStringBuilder => builder.UseNpgsql(),
             OracleConnectionStringBuilder => builder.UseOracle(),
             SqliteConnectionStringBuilder => builder.UseSqlite(),
@@ -135,12 +131,8 @@ public static class Scaffolder
         {
             throw new NotSupportedException($"Unsupported connection string builder: {connectionStringBuilderName}. " +
                                             "The supported connection string builders are " +
-#if PROVIDER_JET
                                             (OperatingSystem.IsWindows() ? $"{nameof(EntityFrameworkCore.Jet.Data.JetConnectionStringBuilder)}, " : "") +
-#endif
-#if PROVIDER_MYSQL
                                             $"{nameof(MySqlConnector.MySqlConnectionStringBuilder)}, " +
-#endif
                                             $"{nameof(NpgsqlConnectionStringBuilder)}, " +
                                             $"{nameof(OracleConnectionStringBuilder)}, " +
                                             $"{nameof(SqliteConnectionStringBuilder)} and {nameof(SqlConnectionStringBuilder)}.");

@@ -1,6 +1,6 @@
 ﻿[assembly: System.CLSCompliant(false)]
 [assembly: System.Reflection.AssemblyMetadata("RepositoryUrl", "https://github.com/0xced/EFCore.Scaffolding")]
-[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v8.0", FrameworkDisplayName=".NET 8.0")]
+[assembly: System.Runtime.Versioning.TargetFramework(".NETCoreApp,Version=v10.0", FrameworkDisplayName=".NET 10.0")]
 namespace EFCore.Scaffolding
 {
     public class ColumnNameComparer : System.Collections.Generic.IComparer<Microsoft.EntityFrameworkCore.Scaffolding.Metadata.DatabaseColumn>

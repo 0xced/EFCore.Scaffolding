@@ -19,11 +19,11 @@ The following EF Core providers are supported out of the box. Pull requests are 
 * [EntityFrameworkCore.Jet](https://www.nuget.org/packages/EntityFrameworkCore.Jet) (on Windows only)
 * [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite)
 * [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)
+* [Microting.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql)
 * [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL)
 * [Oracle.EntityFrameworkCore](https://www.nuget.org/packages/Oracle.EntityFrameworkCore)
-* [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql)
 
-Scaffolding requires to use a typed connection string builder so that the scaffolder knows which provider to use.
+Scaffolding requires using a typed connection string builder so that the scaffolder knows which provider to use.
 
 ```csharp
 using EFCore.Scaffolding;
