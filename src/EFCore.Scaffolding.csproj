@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
 
   <PropertyGroup Label="Compiling">
@@ -11,7 +11,7 @@
     <!-- Microsoft.EntityFrameworkCore.Design.Internal.DatabaseOperations is an internal API that supports the Entity Framework Core
     infrastructure and not subject to the same compatibility standards as public APIs. It may be changed or removed without notice in any release. -->
     <NoWarn>EF1001</NoWarn>
-    <DefineConstants>$(DefineConstants);PROVIDER_JET;PROVIDER_MYSQL</DefineConstants>
+    <!-- <DefineConstants>$(DefineConstants);PROVIDER_JET;PROVIDER_MYSQL</DefineConstants> -->
   </PropertyGroup>
 
   <ItemGroup Label="Compiling">
@@ -67,16 +67,16 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Jet" Version="9.0.0" Condition="$(DefineConstants.Contains(';PROVIDER_JET'))" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.2" />
     <PackageReference Include="MinVer" Version="7.0.0" PrivateAssets="all" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="9.23.26100" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="10.23.26100" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" Condition="$(DefineConstants.Contains(';PROVIDER_MYSQL'))" />
     <PackageReference Include="Scrutor" Version="7.0.0" />
-    <PackageReference Include="System.Data.Odbc" Version="9.0.12" />
-    <PackageReference Include="System.Data.OleDb" Version="9.0.12" />
+    <PackageReference Include="System.Data.Odbc" Version="10.0.2" />
+    <PackageReference Include="System.Data.OleDb" Version="10.0.2" />
   </ItemGroup>
 
   <Target Name="ValidateNuGetPackage" AfterTargets="Pack">

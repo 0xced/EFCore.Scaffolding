@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <!-- Microsoft.EntityFrameworkCore.Design.Internal.DatabaseOperations is an internal API that supports the Entity Framework Core
     infrastructure and not subject to the same compatibility standards as public APIs. It may be changed or removed without notice in any release. -->
