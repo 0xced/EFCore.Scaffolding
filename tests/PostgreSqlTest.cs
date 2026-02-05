@@ -16,9 +16,9 @@ public class PostgreSqlTest(PostgreSqlTest.PostgreSqlFixture dbFixture, ITestOut
     {
         public DbConnectionStringBuilder ConnectionStringBuilder => new NpgsqlConnectionStringBuilder(Container.GetConnectionString());
 
-        protected override PostgreSqlBuilder Configure(PostgreSqlBuilder builder)
+        protected override PostgreSqlBuilder Configure()
         {
-            return base.Configure(builder).WithResourceMapping(Path.Combine("Chinook", "Chinook_PostgreSql.sql"), "/docker-entrypoint-initdb.d/");
+            return new PostgreSqlBuilder("postgres:18-alpine").WithResourceMapping(Path.Combine("Chinook", "Chinook_PostgreSql.sql"), "/docker-entrypoint-initdb.d/");
         }
     }
 }

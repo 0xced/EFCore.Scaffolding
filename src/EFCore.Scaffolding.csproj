@@ -66,15 +66,15 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFrameworkCore.Jet" Version="9.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.9" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
-    <PackageReference Include="MinVer" Version="6.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.12" />
+    <PackageReference Include="MinVer" Version="7.0.0" PrivateAssets="all" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    <PackageReference Include="Oracle.EntityFrameworkCore" Version="9.23.90" />
+    <PackageReference Include="Oracle.EntityFrameworkCore" Version="9.23.26100" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
-    <PackageReference Include="System.Data.Odbc" Version="9.0.9" />
-    <PackageReference Include="System.Data.OleDb" Version="9.0.9" />
+    <PackageReference Include="System.Data.Odbc" Version="9.0.12" />
+    <PackageReference Include="System.Data.OleDb" Version="9.0.12" />
   </ItemGroup>
 
   <Target Name="ValidateNuGetPackage" AfterTargets="Pack">
