@@ -74,6 +74,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="9.23.26100" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" Condition="$(DefineConstants.Contains(';PROVIDER_MYSQL'))" />
+    <PackageReference Include="Scrutor" Version="7.0.0" />
     <PackageReference Include="System.Data.Odbc" Version="9.0.12" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.12" />
   </ItemGroup>

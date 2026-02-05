@@ -36,6 +36,7 @@ public static class Scaffolder
             serviceCollection.AddSingleton(CurrentSettings);
             serviceCollection.AddFiltering();
             serviceCollection.AddRenaming();
+            serviceCollection.AddAnyTypeMapping();
             serviceCollection.AddWorkarounds();
             CurrentSettings.ConfigureServices?.Invoke(serviceCollection);
 

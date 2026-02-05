@@ -109,6 +109,7 @@ public partial class ChinookContext : DbContext
             entity.Property(e => e.HireDate).HasColumnType("DATETIME");
             entity.Property(e => e.LastName).HasColumnType("NVARCHAR(20)");
             entity.Property(e => e.Phone).HasColumnType("NVARCHAR(24)");
+            entity.Property(e => e.Photo).HasColumnType("BLOB");
             entity.Property(e => e.PostalCode).HasColumnType("NVARCHAR(10)");
             entity.Property(e => e.State).HasColumnType("NVARCHAR(40)");
             entity.Property(e => e.Title).HasColumnType("NVARCHAR(30)");

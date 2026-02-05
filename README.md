@@ -52,6 +52,52 @@ It is also possible to rename dependent end and/or principal end navigation prop
 
 By default, properties are scaffolded in the same order as columns appear in the tables. If you prefer to keep them sorted alphabetically, it's possible by setting `SortColumnsComparer = new ColumnNameComparer()`. It's even possible to write your own comparer if you need to sort them in any other way.
 
+### Customizing the CLR type of properties
+
+The type of the generated properties can be customized by using the `ClrType` annotation on the columns. For example, the [BinaryData](https://learn.microsoft.com/en-us/dotnet/api/system.binarydata) type (from [System.Memory.Data](https://www.nuget.org/packages/System.Memory.Data)) can be generated instead of the default `byte[]` type by using a custom `FilterColumn` delegate to intercept and modify the columns.
+
+```csharp
+using System;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+
+var settings = new ScaffolderSettings(connectionStringBuilder)
+{
+    FilterColumn = column =>
+    {
+        // 👇 Identifies binary data on PostgreSQL. Another option could be to identify the column based on its name.
+        if (column.StoreType is "bytea")
+        {
+            column.SetAnnotation(ScaffoldingAnnotationNames.ClrType, typeof(BinaryData));
+        }
+        return true;
+    },
+};
+```
+
+> [!NOTE]
+> Depending on the custom CLR type chosen, a custom [value converter](https://learn.microsoft.com/en-us/ef/core/modeling/value-conversions) might be needed.
+
+For `BinaryData`, implement this converter:
+
+```csharp
+using System;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+
+internal class BinaryDataConverter() : ValueConverter<BinaryData, byte[]>(v => v.ToArray(), v => BinaryData.FromBytes(v));
+```
+
+Finally, register it in your DbContext subclass:
+
+```csharp
+protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)
+{
+    configurationBuilder.Properties<BinaryData>().HaveConversion<BinaryDataConverter>();
+}
+```
+
+> [!TIP]
+> Custom CLR types work fine for enums, too.
+
 ### And more…
 
 The `ScaffolderSettings` class has a few more properties that will help you generate a perfect `DbContext` and its entities. All the public API is documented with XML comments.

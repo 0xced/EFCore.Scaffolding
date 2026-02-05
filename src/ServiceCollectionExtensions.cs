@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -20,6 +21,11 @@ public static class ServiceCollectionExtensions
     internal static void AddRenaming(this IServiceCollection serviceCollection)
     {
         serviceCollection.Replace<ICandidateNamingService, RenamingCandidateNamingService>();
+    }
+
+    internal static void AddAnyTypeMapping(this IServiceCollection serviceCollection)
+    {
+        serviceCollection.Decorate<IRelationalTypeMappingSource, AnyRelationalTypeMappingSource>();
     }
 
     internal static void AddWorkarounds(this IServiceCollection serviceCollection)

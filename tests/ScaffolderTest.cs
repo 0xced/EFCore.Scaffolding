@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using VerifyXunit;
 using Xunit;
 using Xunit.Abstractions;
@@ -53,6 +54,14 @@ public abstract class ScaffolderTest<TFixture> : IClassFixture<TFixture> where T
             ContextName = "ChinookContext",
             OutputDirectory = outputDirectory,
             GetDisplayableConnectionString = GetStableConnectionString,
+            FilterColumn = column =>
+            {
+                if (column.StoreType is "BLOB" or "bytea")
+                {
+                    column.SetAnnotation(ScaffoldingAnnotationNames.ClrType, typeof(BinaryData));
+                }
+                return true;
+            },
         };
         _ = Scaffolder.Run(settings);
 
