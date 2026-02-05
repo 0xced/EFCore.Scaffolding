@@ -4,7 +4,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using EntityFrameworkCore.Jet.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +11,6 @@ using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Design.Internal;
 using Microsoft.EntityFrameworkCore.Scaffolding;
 using Microsoft.Extensions.DependencyInjection;
-using MySqlConnector;
 using Npgsql;
 using Oracle.ManagedDataAccess.Client;
 
@@ -118,11 +116,14 @@ public static class Scaffolder
     {
         var connectionStringBuilderName = connectionStringBuilder.GetType().Name;
         var builder = new DbContextOptionsBuilder();
-        var isWindows = OperatingSystem.IsWindows();
         var optionsBuilder = connectionStringBuilder switch
         {
-            JetConnectionStringBuilder jet => isWindows ? builder.UseJet(".", jet.ProviderType) : builder,
-            MySqlConnectionStringBuilder => builder.UseMySql(MySqlServerVersion.LatestSupportedServerVersion),
+#if PROVIDER_JET
+            EntityFrameworkCore.Jet.Data.JetConnectionStringBuilder jet => OperatingSystem.IsWindows() ? builder.UseJet(".", jet.ProviderType) : builder,
+#endif
+#if PROVIDER_MYSQL
+            MySqlConnector.MySqlConnectionStringBuilder => builder.UseMySql(MySqlServerVersion.LatestSupportedServerVersion),
+#endif
             NpgsqlConnectionStringBuilder => builder.UseNpgsql(),
             OracleConnectionStringBuilder => builder.UseOracle(),
             SqliteConnectionStringBuilder => builder.UseSqlite(),
@@ -131,11 +132,14 @@ public static class Scaffolder
         };
         if (!optionsBuilder.IsConfigured)
         {
-            var jetConnectionStringBuilder = isWindows ? $"{nameof(JetConnectionStringBuilder)}, " : "";
             throw new NotSupportedException($"Unsupported connection string builder: {connectionStringBuilderName}. " +
                                             "The supported connection string builders are " +
-                                            jetConnectionStringBuilder +
-                                            $"{nameof(MySqlConnectionStringBuilder)}, " +
+#if PROVIDER_JET
+                                            (OperatingSystem.IsWindows() ? $"{nameof(EntityFrameworkCore.Jet.Data.JetConnectionStringBuilder)}, " : "") +
+#endif
+#if PROVIDER_MYSQL
+                                            $"{nameof(MySqlConnector.MySqlConnectionStringBuilder)}, " +
+#endif
                                             $"{nameof(NpgsqlConnectionStringBuilder)}, " +
                                             $"{nameof(OracleConnectionStringBuilder)}, " +
                                             $"{nameof(SqliteConnectionStringBuilder)} and {nameof(SqlConnectionStringBuilder)}.");
