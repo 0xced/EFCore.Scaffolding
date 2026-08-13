@@ -2,7 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [EFCore-Pinned Versioning](https://entityframework-extensions.net/efcore-pinned-versioning).
+
+## [10.1.0][10.1.0] - 2026-08-13
+
+* Update to .NET 10 / Entity Framework Core 10 and drop support for .NET 8
+* Adopt [EFCore-Pinned Versioning](https://entityframework-extensions.net/efcore-pinned-versioning)
+* Switch from Pomelo.EntityFrameworkCore.MySql to Microting.EntityFrameworkCore.MySql
+* Update to the latest provider versions which are compatible with EF Core 10
+  * [EntityFrameworkCore.Jet 10.0.1](https://www.nuget.org/packages/EntityFrameworkCore.Jet/10.0.1)
+  * [Microsoft.EntityFrameworkCore.Sqlite 10.0.11](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/10.0.11)
+  * [Microsoft.EntityFrameworkCore.SqlServer 10.0.11](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer/10.0.11)
+  * [Microting.EntityFrameworkCore.MySql 10.0.10](https://www.nuget.org/packages/Microting.EntityFrameworkCore.MySql/10.0.10)
+  * [Npgsql.EntityFrameworkCore.PostgreSQL 10.0.3](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL/10.0.3)
+  * [Oracle.EntityFrameworkCore 10.23.26300](https://www.nuget.org/packages/Oracle.EntityFrameworkCore/10.23.26300)
+  * [System.Data.Odbc 10.0.11](https://www.nuget.org/packages/System.Data.Odbc/10.0.11)
+  * [System.Data.OleDb 10.0.11](https://www.nuget.org/packages/System.Data.OleDb/10.0.11)
 
 ## [3.1.0][3.1.0] - 2026-02-05
 
@@ -54,6 +69,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Initial release
 
+[10.1.0]: https://github.com/0xced/EFCore.Scaffolding/compare/3.1.0...10.1.0
 [3.1.0]: https://github.com/0xced/EFCore.Scaffolding/compare/3.0.0...3.1.0
 [3.0.0]: https://github.com/0xced/EFCore.Scaffolding/compare/2.1.0...3.0.0
 [2.1.0]: https://github.com/0xced/EFCore.Scaffolding/compare/2.0.0...2.1.0
