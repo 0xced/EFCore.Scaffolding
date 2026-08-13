@@ -12,6 +12,9 @@ dotnet add package EFCore.Scaffolding
 
 Reverse engineering a database, also known as [scaffolding](https://learn.microsoft.com/en-us/ef/core/managing-schemas/scaffolding/), is usually performed with the `dotnet ef dbcontext scaffold` command. This command has a few shortcomings that this project aims to address.
 
+> [!NOTE]
+> Starting with version 10, EFCore.Scaffolding uses [EFCore-Pinned Versioning](https://entityframework-extensions.net/efcore-pinned-versioning)
+
 ### EF Core providers support
 
 The following EF Core providers are supported out of the box. Pull requests are welcome to support additional providers.
